@@ -31,7 +31,13 @@ JbInterpreterTest >> testDeclarationBindsVariableToExpressionValue [
 	self assert: (interpreter environment at: 'x') equals: 19.
 	
 	self interpret: 'var x = 6;var y = 2*x;'.
-	self assert: (interpreter environment at: 'y') equals: 12
+	self assert: (interpreter environment at: 'y') equals: 12.
+	
+	self interpret: 'var x = 10 - 10 / 2;'.
+	self assert: (interpreter environment at: 'x') equals: 5.
+	
+	self interpret: 'var x = 6;var y = 24/x;'.
+	self assert: (interpreter environment at: 'y') equals: 4.
 ]
 
 { #category : #running }
