@@ -57,6 +57,11 @@ JbInterpreter >> isNotBinding [
 ]
 
 { #category : #primitives }
+JbInterpreter >> isNullBinding [
+	^ #isNull -> [ :a | a = #() ]
+]
+
+{ #category : #primitives }
 JbInterpreter >> lengthBinding [
 	^ #length -> [ :s | s size ]
 ]
@@ -68,14 +73,24 @@ JbInterpreter >> modBinding [
 ]
 
 { #category : #primitives }
+JbInterpreter >> notBinding [
+	^ #not -> [ :a | a not ]
+]
+
+{ #category : #primitives }
 JbInterpreter >> printBinding [
 
-	^#print -> [ :value | transcript show: value printString ]
+	^#print -> [ :value | (value isString) 
+						ifTrue: [ transcript show: value ] 
+						ifFalse: [ transcript show: value printString ] ] 
 ]
 
 { #category : #primitives }
 JbInterpreter >> printlnBinding [
-	^ #println -> [ :value | Transcript show: value printString ; cr].
+	
+	^#println -> [ :value | (value isString) 
+						ifTrue: [ transcript show: value ; cr ] 
+						ifFalse: [ transcript show: value printString ; cr ] ]
 ]
 
 { #category : #api }

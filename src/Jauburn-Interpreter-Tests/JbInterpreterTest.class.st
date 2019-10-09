@@ -126,13 +126,6 @@ JbInterpreterTest >> testFunctionDefinition [
 	self assert: (interpreter environment at: 'x') environment equals: interpreter environment.
 ]
 
-{ #category : #running }
-JbInterpreterTest >> testIsNotBinding [
-	
-	self interpret: 'var x = true; var z = not(x);'.
-	self assert: (interpreter environment at: 'z') equals: false.
-]
-
 { #category : #tests }
 JbInterpreterTest >> testLengthBinding [
 
@@ -156,13 +149,31 @@ JbInterpreterTest >> testModBinding [
 	self assert: (interpreter environment at: 'z') equals: 2.
 ]
 
+{ #category : #running }
+JbInterpreterTest >> testNotBinding [
+	
+	self interpret: 'var x = true; var z = not(x);'.
+	self assert: (interpreter environment at: 'z') equals: false.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testPrintBinding [
+
+	| mt |
+	mt := MockTranscript new.
+	interpreter transcript: mt. 
+	interpreter run: 'var x = print("test");'.
+    self assert: mt contents equals: 'test'.
+]
+
 { #category : #tests }
 JbInterpreterTest >> testPrintlnBinding [
 
 	| mt |
 	mt := MockTranscript new.
-	self interpret: 'var x = println("test");'.
-    self assert: (interpreter environment at: 'x') equals: 'test
+	interpreter transcript: mt. 
+	interpreter run: 'var x = println("test");'.
+    self assert: mt contents equals: 'test
 '.
 ]
 
