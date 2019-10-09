@@ -18,6 +18,13 @@ JbIfNode >> condition: anObject [
 	condition := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+JbIfNode >> executeIn: environment [ 
+
+	(condition evaluateIn: environment)
+		ifTrue: [ ^trueStatements do: [ :e | e executeIn: environment  ] ]
+]
+
 { #category : #accessing }
 JbIfNode >> trueStatements [
 	^ trueStatements

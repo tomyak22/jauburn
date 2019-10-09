@@ -138,7 +138,8 @@ Class {
 		'program',
 		'stringExpression',
 		'stringComparisonExpression',
-		'booleanExpression'
+		'booleanExpression',
+		'whileStatement'
 	],
 	#category : #'Jauburn-Parser-Core'
 }
@@ -405,7 +406,7 @@ JbParser >> start [
 JbParser >> statement [
 
 	^ variableDeclarationStatement / assignmentStatement
-		/ ifElseStatement / ifStatement / returnStatement
+		/ ifElseStatement / ifStatement / returnStatement / whileStatement
 ]
 
 { #category : #statements }
@@ -449,5 +450,21 @@ JbParser >> variableDeclarationStatement [
 			JbVariableDeclarationStatementNode new
 				identifier: arr second;
 				expression: arr fourth;
+				yourself ]
+]
+
+{ #category : #'as yet unclassified' }
+JbParser >> whileStatement [
+
+	^'while' asParser trim
+	, $( asParser trim
+	, expression
+	, $) asParser trim 
+	, statementBlock
+		 ==>
+		[ :arr |
+			JbWhileLoopNode new
+				condition: arr third;
+				trueStatements: arr fifth;
 				yourself ]
 ]

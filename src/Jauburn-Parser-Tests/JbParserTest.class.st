@@ -275,3 +275,13 @@ JbParserTest >> testVariableDeclarationStatement [
 	stmt := self parse: 'var monkey = 37*x;' rule: #variableDeclarationStatement.
 	self assert: stmt identifier equals: 'monkey'
 ]
+
+{ #category : #tests }
+JbParserTest >> testWhileStatement [
+
+	| stmt |
+	
+	stmt := self parse: 'while (x < 10) {}' rule: #whileStatement.
+	
+	self assert: (stmt isKindOf: JbWhileLoopNode) equals: true.
+]
