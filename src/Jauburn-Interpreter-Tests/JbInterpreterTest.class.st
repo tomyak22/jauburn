@@ -72,6 +72,8 @@ JbInterpreterTest >> testDeclarationBindsVariableToExpressionValue [
 	
 	self interpret: 'var x = 6;var y = 24/x;'.
 	self assert: (interpreter environment at: 'y') equals: 4.
+	
+	
 
 	
 
@@ -102,9 +104,26 @@ JbInterpreterTest >> testFunctionDefinition [
 	self assert: (interpreter environment at: 'x') environment equals: interpreter environment.
 ]
 
+{ #category : #tests }
+JbInterpreterTest >> testLengthBinding [
+
+	self interpret: 'var x = length("test");'.
+    self assert: (interpreter environment at: 'x') equals: 4
+]
+
 { #category : #running }
 JbInterpreterTest >> testNotBinding [
 	
 	self interpret: 'var x = true; var z = not(x);'.
 	self assert: (interpreter environment at: 'z') equals: false.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testSingleArity [
+
+		self interpret: 'var x = 3;var y = -x;'.
+		self assert: (interpreter environment at: 'y') equals: -3.
+		
+		self interpret: 'var x = -3;var y = -x;'.
+		self assert: (interpreter environment at: 'y') equals: 3.
 ]
