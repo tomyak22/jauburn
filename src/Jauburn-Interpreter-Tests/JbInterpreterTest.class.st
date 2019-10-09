@@ -29,23 +29,7 @@ JbInterpreterTest >> testBooleanExpression [
 	
 	self interpret: 'var x = true; var z = false;'.
 	self assert: (interpreter environment at: 'z') equals: false.
-]
-
-{ #category : #running }
-JbInterpreterTest >> testDeclarationBindsVariableToExpressionValue [
-
-	self interpret: 'var x = 3 + 2 * 8;'.
-	self assert: (interpreter environment at: 'x') equals: 19.
-	
-	self interpret: 'var x = 6;var y = 2*x;'.
-	self assert: (interpreter environment at: 'y') equals: 12.
-	
-	self interpret: 'var x = 10 - 10 / 2;'.
-	self assert: (interpreter environment at: 'x') equals: 5.
-	
-	self interpret: 'var x = 6;var y = 24/x;'.
-	self assert: (interpreter environment at: 'y') equals: 4.
-	
+		
 	self interpret: 'var x = 1 == 1;'.
 	self assert: (interpreter environment at: 'x').
 	
@@ -72,6 +56,23 @@ JbInterpreterTest >> testDeclarationBindsVariableToExpressionValue [
 	
 	self interpret: 'var x = 10 == 1;'.
 	self deny: (interpreter environment at: 'x').
+]
+
+{ #category : #running }
+JbInterpreterTest >> testDeclarationBindsVariableToExpressionValue [
+
+	self interpret: 'var x = 3 + 2 * 8;'.
+	self assert: (interpreter environment at: 'x') equals: 19.
+	
+	self interpret: 'var x = 6;var y = 2*x;'.
+	self assert: (interpreter environment at: 'y') equals: 12.
+	
+	self interpret: 'var x = 10 - 10 / 2;'.
+	self assert: (interpreter environment at: 'x') equals: 5.
+	
+	self interpret: 'var x = 6;var y = 24/x;'.
+	self assert: (interpreter environment at: 'y') equals: 4.
+
 	
 
 	
