@@ -119,6 +119,16 @@ JbInterpreterTest >> testNotBinding [
 ]
 
 { #category : #tests }
+JbInterpreterTest >> testPrintlnBinding [
+
+	| mt |
+	mt := MockTranscript new.
+	self interpret: 'var x = println("test");'.
+    self assert: (interpreter environment at: 'x') equals: 'test
+'.
+]
+
+{ #category : #tests }
 JbInterpreterTest >> testSingleArity [
 
 		self interpret: 'var x = 3;var y = -x;'.

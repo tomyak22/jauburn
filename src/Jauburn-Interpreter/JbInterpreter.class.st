@@ -8,7 +8,8 @@ Class {
 	#name : #JbInterpreter,
 	#superclass : #Object,
 	#instVars : [
-		'environment'
+		'environment',
+		'transcript'
 	],
 	#category : #'Jauburn-Interpreter-Core'
 }
@@ -57,7 +58,7 @@ JbInterpreter >> lengthBinding [
 { #category : #primitives }
 JbInterpreter >> printBinding [
 
-	^#print -> [ :value | Transcript show: value printString ]
+	^#print -> [ :value | transcript show: value printString ]
 ]
 
 { #category : #primitives }
@@ -71,4 +72,14 @@ JbInterpreter >> run: programString [
 	| parser |
 	parser := JbParser new.
 	self interpret: (parser parse: programString)
+]
+
+{ #category : #accessing }
+JbInterpreter >> transcript [
+	^ transcript
+]
+
+{ #category : #accessing }
+JbInterpreter >> transcript: anObject [
+	transcript := anObject
 ]
