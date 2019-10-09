@@ -15,8 +15,14 @@ Class {
 }
 
 { #category : #primitives }
+JbInterpreter >> absBinding [
+
+	^#abs -> [ :f | f abs ]
+]
+
+{ #category : #primitives }
 JbInterpreter >> concatBinding [
-    ^ #concat -> [ :s1 :s2 | s1, ' ', s2 ]
+    ^ #concat -> [ :s1 :s2 | s1, '', s2 ]
 ]
 
 { #category : #accessing }
@@ -53,6 +59,12 @@ JbInterpreter >> isNotBinding [
 { #category : #primitives }
 JbInterpreter >> lengthBinding [
 	^ #length -> [ :s | s size ]
+]
+
+{ #category : #primitives }
+JbInterpreter >> modBinding [
+
+	^#mod -> [ :a :b | a \\ b ]
 ]
 
 { #category : #primitives }

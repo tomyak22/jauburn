@@ -24,6 +24,18 @@ JbInterpreterTest >> setUp [
 	interpreter := JbInterpreter new
 ]
 
+{ #category : #tests }
+JbInterpreterTest >> testAbsBinding [
+
+	self interpret: 'var x = abs(-100);'.
+	self interpret: 'var y = abs(100);'.
+	self interpret: 'var z = abs(21);'.
+	
+	self assert: (interpreter environment at: 'x') equals: 100.
+	self assert: (interpreter environment at: 'y') equals: 100.
+	self assert: (interpreter environment at: 'z') equals: 21.
+]
+
 { #category : #running }
 JbInterpreterTest >> testBooleanExpression [
 	
@@ -56,6 +68,16 @@ JbInterpreterTest >> testBooleanExpression [
 	
 	self interpret: 'var x = 10 == 1;'.
 	self deny: (interpreter environment at: 'x').
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testConcatBinding [
+
+	self interpret: 'var x = concat("testing", " concat");'.
+	self interpret: 'var y = concat("second", " test");'.
+	
+	self assert: (interpreter environment at: 'x') equals: 'testing concat'.
+	self assert: (interpreter environment at: 'y') equals: 'second test'.
 ]
 
 { #category : #running }
@@ -104,18 +126,34 @@ JbInterpreterTest >> testFunctionDefinition [
 	self assert: (interpreter environment at: 'x') environment equals: interpreter environment.
 ]
 
+{ #category : #running }
+JbInterpreterTest >> testIsNotBinding [
+	
+	self interpret: 'var x = true; var z = not(x);'.
+	self assert: (interpreter environment at: 'z') equals: false.
+]
+
 { #category : #tests }
 JbInterpreterTest >> testLengthBinding [
 
 	self interpret: 'var x = length("test");'.
-    self assert: (interpreter environment at: 'x') equals: 4
+    self assert: (interpreter environment at: 'x') equals: 4.
+
+	self interpret: 'var y = length("thisIsAnotherTest");'.
+    self assert: (interpreter environment at: 'y') equals: 17.
+	
 ]
 
-{ #category : #running }
-JbInterpreterTest >> testNotBinding [
+{ #category : #tests }
+JbInterpreterTest >> testModBinding [
+
+	self interpret: 'var x = mod(-100, 10);'.
+	self interpret: 'var y = mod(10, 11);'.
+	self interpret: 'var z = mod(12, 5);'.
 	
-	self interpret: 'var x = true; var z = not(x);'.
-	self assert: (interpreter environment at: 'z') equals: false.
+	self assert: (interpreter environment at: 'x') equals: 0.
+	self assert: (interpreter environment at: 'y') equals: 10.
+	self assert: (interpreter environment at: 'z') equals: 2.
 ]
 
 { #category : #tests }
