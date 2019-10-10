@@ -127,6 +127,17 @@ JbInterpreterTest >> testFunctionDefinition [
 ]
 
 { #category : #tests }
+JbInterpreterTest >> testGCD [
+
+	| x mui |
+	mui := MockUIManager new.
+	interpreter transcript: Transcript.
+	interpreter uimanager: mui.
+	x := JbSamplePrograms GCD.
+	self interpret: x.
+]
+
+{ #category : #tests }
 JbInterpreterTest >> testIf [
 
 	self interpret: 'var x = 2; if(1 < 2) {x = 5;};'.

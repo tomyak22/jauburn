@@ -49,7 +49,7 @@ JbInterpreter >> initialize [
 { #category : #primitives }
 JbInterpreter >> inputBinding [
 
-	^#input -> [ :prompt | (uimanager input: prompt) asString ]
+	^#input -> [ :prompt | (self uimanager input: prompt) asString ]
 ]
 
 { #category : #api }
@@ -88,8 +88,8 @@ JbInterpreter >> notBinding [
 JbInterpreter >> printBinding [
 
 	^#print -> [ :value | (value isString) 
-						ifTrue: [ transcript show: value ] 
-						ifFalse: [ transcript show: value printString ] ] 
+						ifTrue: [ self transcript show: value ] 
+						ifFalse: [ self transcript show: value printString ] ] 
 ]
 
 { #category : #primitives }
@@ -120,7 +120,7 @@ JbInterpreter >> transcript: anObject [
 
 { #category : #accessing }
 JbInterpreter >> uimanager [
-	^ uimanager
+	^ uimanager ifNil: [ UIManager default ]
 ]
 
 { #category : #accessing }

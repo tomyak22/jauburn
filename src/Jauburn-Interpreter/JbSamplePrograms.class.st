@@ -8,6 +8,23 @@ Class {
 }
 
 { #category : #'sample programs' }
+JbSamplePrograms class >> GCD [
+	
+	^'var euclid = function(a,b) { return mod(a,b); };
+		var input1 = 5;
+		var input2 = 12;
+		
+		while(input2 !=0) { 
+		var remainder = euclid(input1, input2);
+		input1 = input2;
+		input2 = remainder; }
+		
+		var test = println(input1);'
+		
+		
+]
+
+{ #category : #'sample programs' }
 JbSamplePrograms class >> noFunctions [
 	"self run: #noFunctions"
 
@@ -24,4 +41,10 @@ JbSamplePrograms class >> run: method [
 	"Look at sample programs for examples of using this method."
 
 	^JbInterpreter new run: (self perform: method)
+]
+
+{ #category : #'sample programs' }
+JbSamplePrograms class >> squareRootNewton [
+
+	^self
 ]
