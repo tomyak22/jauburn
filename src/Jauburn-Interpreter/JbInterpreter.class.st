@@ -9,7 +9,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'environment',
-		'transcript'
+		'transcript',
+		'uimanager'
 	],
 	#category : #'Jauburn-Interpreter-Core'
 }
@@ -43,6 +44,12 @@ JbInterpreter >> initialize [
             | prim |
             prim := self perform: method.
             environment at: prim key put: (JbPrimitive new block: prim value; yourself)]
+]
+
+{ #category : #primitives }
+JbInterpreter >> inputBinding [
+
+	^#input -> [ :prompt | (uimanager input: prompt) asString ]
 ]
 
 { #category : #api }
@@ -109,4 +116,14 @@ JbInterpreter >> transcript [
 { #category : #accessing }
 JbInterpreter >> transcript: anObject [
 	transcript := anObject
+]
+
+{ #category : #accessing }
+JbInterpreter >> uimanager [
+	^ uimanager
+]
+
+{ #category : #accessing }
+JbInterpreter >> uimanager: anObject [
+	uimanager := anObject
 ]

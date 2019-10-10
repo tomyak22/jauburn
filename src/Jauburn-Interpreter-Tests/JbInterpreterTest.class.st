@@ -127,6 +127,35 @@ JbInterpreterTest >> testFunctionDefinition [
 ]
 
 { #category : #tests }
+JbInterpreterTest >> testIf [
+
+	self interpret: 'var x = 2; if(1 < 2) {x = 5;};'.
+	self assert: (interpreter environment at: 'x') equals: 5.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testIfElse [
+
+	self interpret: 'var x = 2; if(1 < 2) {x = 5;} else {var x = 25;};'.
+	self assert: (interpreter environment at: 'x') equals: 5.
+	
+	self interpret: 'var x = 2; if(1 > 2) {x = 5;} else {var x = 25;};'.
+	self assert: (interpreter environment at: 'x') equals: 25.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testInputBinding [
+
+	| mui |
+	mui := MockUIManager new.
+	interpreter uimanager: mui.
+	
+	mui contentsInput: 'Tom'.
+	self interpret: 'var x = input("Enter your name (Tom): ");'.
+	self assert: (interpreter environment at: 'x') equals: 'Tom'.
+]
+
+{ #category : #tests }
 JbInterpreterTest >> testLengthBinding [
 
 	self interpret: 'var x = length("test");'.
@@ -185,4 +214,11 @@ JbInterpreterTest >> testSingleArity [
 		
 		self interpret: 'var x = -3;var y = -x;'.
 		self assert: (interpreter environment at: 'y') equals: 3.
+]
+
+{ #category : #tests }
+JbInterpreterTest >> testWhile [ 
+
+	self interpret: 'var x = 10;var y = 0;while(x > 0) {y = y + x; x = x - 1;}'.
+	self assert: (interpreter environment at: 'y') equals: 55.
 ]
